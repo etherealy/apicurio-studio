@@ -1,0 +1,61 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  labels:
+    module: {{ .Values.api.name }}
+  name: {{ .Values.api.name }}
+spec:
+  host: {{ .Values.ui.hostname }}
+  path: /studio-api/?(.*)
+  port:
+    targetPort: {{ .Values.api.port }}
+  {{- if .Values.route.tls.enabled  }}
+  tls:
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
+    termination: {{ .Values.route.tls.termination }}
+  to:
+    kind: Service
+    name: {{ .Values.api.name }}
+  wildcardPolicy: None
+{{- end }}
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  labels:
+    module: {{ .Values.ui.name }}
+  name: {{ .Values.ui.name }}
+spec:
+  host: {{ .Values.ui.hostname }}
+  port:
+    targetPort: {{ .Values.ui.port }}
+  {{- if .Values.route.tls.enabled  }}
+  tls:
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
+    termination: {{ .Values.route.tls.termination }}
+  to:
+    kind: Service
+    name: {{ .Values.ui.name }}
+  wildcardPolicy: None
+{{- end }}
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  labels:
+    module: {{ .Values.ws.name }}
+  name: {{ .Values.ws.name }}
+spec:
+  host: {{ .Values.ui.hostname }}
+  path: /ws/?(.*)
+  port:
+    targetPort: {{ .Values.ws.port }}
+  {{- if .Values.route.tls.enabled  }}
+  tls:
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
+    termination: {{ .Values.route.tls.termination }}
+  to:
+    kind: Service
+    name: {{ .Values.ws.name }}
+  wildcardPolicy: None
+{{- end }}

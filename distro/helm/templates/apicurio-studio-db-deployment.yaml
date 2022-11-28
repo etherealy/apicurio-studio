@@ -45,6 +45,10 @@ spec:
                   key: db-user
           image: {{ .Values.database.image }}
           imagePullPolicy: {{ .Values.database.imagePullPolicy }}
+          {{- if .Values.database.resources }}
+          resources:
+          {{- toYaml .Values.database.resources | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-apicurio

@@ -1,0 +1,6 @@
+ui:
+  hostname: apicurio-studio.test.swmapps.net
+
+# keycloak:
+# url: http://KEYCLOAK_URL/auth
+
