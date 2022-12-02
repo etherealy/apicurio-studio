@@ -1,5 +1,15 @@
 ui:
+  image: docker-registry-default.swmapps.net/swmbuild/apicurio-studio-ui
   hostname: apicurio-studio.test.swmapps.net
+
+api:
+  image: docker-registry-default.swmapps.net/swmbuild/apicurio-studio-api
+
+ws:
+  image: docker-registry-default.swmapps.net/swmbuild/apicurio-studio-ws
+
+database:
+  image: docker-registry-default.swmapps.net/swmbuild/percona:5.7
 
 # keycloak:
 # url: http://KEYCLOAK_URL/auth
